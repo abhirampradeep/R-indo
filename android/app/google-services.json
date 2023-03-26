@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "723872629457",
+    "project_id": "rindo-b15b9",
+    "storage_bucket": "rindo-b15b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:723872629457:android:495b11e39ae4e3e3733bf0",
+        "android_client_info": {
+          "package_name": "com.example.ar_indoor_nav"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "723872629457-mp0fbpujmmdc5jkthk65to0v0ar05unv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwSKXSe9lKyEwdthR2-zgF8zgRVuSLLNg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "723872629457-mp0fbpujmmdc5jkthk65to0v0ar05unv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "723872629457-em85l74gdripco8tvik671cj3ci9qdaf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.arIndoorNav"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

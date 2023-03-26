@@ -3,36 +3,44 @@ import 'package:flutter/material.dart';
 Image logoWidget(String imageName) {
   return Image.asset(
     imageName,
-    fit: BoxFit.fitWidth,
+    fit: BoxFit.fill,
     width: 150,
     height: 150,
   );
 }
 
-TextField usableTextfield(String text, IconData icon, bool isPasswordtype,
+TextFormField usableTextfield(String text, IconData icon, bool isPasswordtype,
     TextEditingController controller) {
-  return TextField(
+  return TextFormField(
     controller: controller,
     obscureText: isPasswordtype,
     enableSuggestions: !isPasswordtype,
     autocorrect: !isPasswordtype,
-    cursorColor: Colors.black,
-    style: TextStyle(color: Colors.black.withOpacity(.9)),
+    cursorColor: Colors.white,
+    style: TextStyle(color: Colors.white),
     decoration: InputDecoration(
-      prefix: Icon(
-        icon,
-        color: Colors.black,
-      ),
-      labelText: text,
-      labelStyle: TextStyle(color: Colors.black),
-      filled: true,
-      // floatingLabelBehavior: FloatingLabelBehavior.never,
-      fillColor: Colors.white,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: const BorderSide(width: 5, style: BorderStyle.none),
-      ),
-    ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white, width: 2),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white, width: 2),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        helperText: '',
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white, width: 2),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        focusColor: Colors.white,
+        isDense: true,
+        contentPadding: EdgeInsets.only(top: 15),
+        prefixIcon: Icon(
+          icon,
+          color: Colors.white,
+        ),
+        hintText: text,
+        hintStyle: TextStyle(color: Colors.white)),
     keyboardType: isPasswordtype
         ? TextInputType.visiblePassword
         : TextInputType.emailAddress,
@@ -67,3 +75,42 @@ Container signInSignUpButton(
     ),
   );
 }
+
+
+
+  // Container(
+  //                 child: TextFormField(
+  //                   validator: (value) {
+  //                     if (value == null || value.isEmpty) {
+  //                       return "enter email address";
+  //                     } else
+  //                       return null;
+  //                   },
+  //                   controller: _emailTextController,
+  //                   keyboardType: TextInputType.emailAddress,
+  //                   style: TextStyle(color: Colors.white),
+  //                   decoration: InputDecoration(
+  //                       focusedBorder: OutlineInputBorder(
+  //                         borderSide: BorderSide(color: Colors.white, width: 2),
+  //                         borderRadius: BorderRadius.circular(15),
+  //                       ),
+  //                       enabledBorder: OutlineInputBorder(
+  //                         borderSide: BorderSide(color: Colors.white, width: 2),
+  //                         borderRadius: BorderRadius.circular(15),
+  //                       ),
+  //                       helperText: '',
+  //                       border: OutlineInputBorder(
+  //                         borderSide: BorderSide(color: Colors.white, width: 2),
+  //                         borderRadius: BorderRadius.circular(15),
+  //                       ),
+  //                       focusColor: Colors.white,
+  //                       isDense: true,
+  //                       contentPadding: EdgeInsets.only(top: 15),
+  //                       prefixIcon: Icon(
+  //                         Icons.email,
+  //                         color: Colors.white,
+  //                       ),
+  //                       hintText: 'Enter your email',
+  //                       hintStyle: TextStyle(color: Colors.white)),
+  //                 ),
+  //               ),

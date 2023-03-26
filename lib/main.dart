@@ -1,8 +1,15 @@
 import 'dart:async';
+import 'package:ar_indoor_nav/firebase_options.dart';
+import 'package:ar_indoor_nav/pages/home.dart';
 import 'package:ar_indoor_nav/pages/login.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -36,27 +43,38 @@ class _SplasgscreenState extends State<Splasgscreen> {
     Timer(
         Duration(seconds: 3),
         () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const loginScreen())));
+            MaterialPageRoute(builder: (context) => const HomeScreen())));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black12,
+      backgroundColor: Colors.grey[900],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            AnimatedContainer(
-              height: animate ? 100 : 100,
-              width: animate ? 100 : 100,
-              duration: const Duration(microseconds: 5600),
-              child: const FlutterLogo(),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 150,
+              padding: const EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                      color: Colors.white, width: 4, style: BorderStyle.solid),
+                  image: DecorationImage(
+                      image: AssetImage(
+                    'assets/images/image.jpeg',
+                  ))),
             ),
-            AnimatedContainer(
-              duration: const Duration(microseconds: 5600),
+            SizedBox(
+              height: 15,
+            ),
+            Container(
               child: const Text(
-                "AR INDO",
+                "R INDO",
                 style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
