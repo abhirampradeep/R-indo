@@ -8,4 +8,12 @@ class UserModel {
     required this.email,
     required this.password,
   });
+
+  toJson() {
+    return {
+      "Name": user,
+      "Email": email,
+      "Password": password,
+    };
+  }
 }

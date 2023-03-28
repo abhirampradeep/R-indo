@@ -2,14 +2,15 @@ import 'dart:async';
 import 'package:ar_indoor_nav/firebase_options.dart';
 import 'package:ar_indoor_nav/pages/home.dart';
 import 'package:ar_indoor_nav/pages/login.dart';
+import 'package:ar_indoor_nav/repository/authentication/authentication_respository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
+      .then((value) => Get.put(AuthenticationRespository()));
   runApp(const MyApp());
 }
 
@@ -21,18 +22,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Splash Screen',
       theme: ThemeData(),
-      home: Splasgscreen(),
+      home: Splashscreen(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class Splasgscreen extends StatefulWidget {
+class Splashscreen extends StatefulWidget {
   @override
-  _SplasgscreenState createState() => _SplasgscreenState();
+  _SplashscreenState createState() => _SplashscreenState();
 }
 
-class _SplasgscreenState extends State<Splasgscreen> {
+class _SplashscreenState extends State<Splashscreen> {
   bool animate = false;
 
   @override
@@ -43,7 +44,7 @@ class _SplasgscreenState extends State<Splasgscreen> {
     Timer(
         Duration(seconds: 3),
         () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const HomeScreen())));
+            MaterialPageRoute(builder: (context) => const loginScreen())));
   }
 
   @override
