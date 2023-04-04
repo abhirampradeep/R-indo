@@ -48,7 +48,7 @@ TextFormField usableTextfield(String text, IconData icon, bool isPasswordtype,
 }
 
 Container signInSignUpButton(
-    BuildContext context, bool isLogin, Function onTap) {
+    BuildContext context, bool isLogin, Function() onTap) {
   return Container(
     width: MediaQuery.of(context).size.width,
     height: 50,

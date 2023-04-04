@@ -1,16 +1,14 @@
 import 'dart:async';
 import 'package:ar_indoor_nav/firebase_options.dart';
-import 'package:ar_indoor_nav/pages/home.dart';
 import 'package:ar_indoor_nav/pages/login.dart';
-import 'package:ar_indoor_nav/repository/authentication/authentication_respository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
-      .then((value) => Get.put(AuthenticationRespository()));
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 
@@ -19,7 +17,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Splash Screen',
       theme: ThemeData(),
       home: Splashscreen(),
@@ -75,7 +73,7 @@ class _SplashscreenState extends State<Splashscreen> {
             ),
             Container(
               child: const Text(
-                "R INDO",
+                "AR-INDO",
                 style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,

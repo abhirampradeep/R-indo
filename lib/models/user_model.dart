@@ -1,19 +1,30 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 class UserModel {
-  final String user;
-  final String email;
-  final String password;
+  String? uid;
+  String? username;
+  String? email;
+  String? password;
 
-  const UserModel({
-    required this.user,
-    required this.email,
-    required this.password,
-  });
+  UserModel({this.uid, this.username, this.email, this.password});
 
-  toJson() {
+  //recieving data from server
+  factory UserModel.fromMap(map) {
+    return UserModel(
+      uid: map['uid'],
+      email: map['email'],
+      username: map['username'],
+      password: map['password'],
+    );
+  }
+
+  //sending data to server
+  Map<String, dynamic> toMap() {
     return {
-      "Name": user,
-      "Email": email,
-      "Password": password,
+      'uid': uid,
+      'email': email,
+      'username': username,
+      'password': password,
     };
   }
 }

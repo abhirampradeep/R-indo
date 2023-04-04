@@ -1,8 +1,11 @@
+import 'package:ar_indoor_nav/models/user_model.dart';
 import 'package:ar_indoor_nav/pages/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,17 +16,32 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  CollectionReference users = FirebaseFirestore.instance.collection('User');
+  User? user = FirebaseAuth.instance.currentUser;
+  UserModel userModel = UserModel();
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.userModel = UserModel.fromMap(value.data());
+
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final Users = FirebaseAuth.instance.currentUser;
-    users.get();
     return Scaffold(
         appBar: AppBar(
           actions: [
             IconButton(
                 onPressed: () {
                   FirebaseAuth.instance.signOut().then((value) {
+                    Fluttertoast.showToast(msg: "logout Successful");
                     print("sign out sucessful");
                     Navigator.push(
                         context,
@@ -31,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             builder: (context) => const loginScreen()));
                   });
                 },
-                icon: Icon(Icons.door_back_door))
+                icon: Icon(Icons.logout))
           ],
         ),
         // smera@gmail.com
@@ -50,19 +68,19 @@ class _HomeScreenState extends State<HomeScreen> {
               width: MediaQuery.of(context).size.width,
               height: 200,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                    width: 100,
-                    height: 100,
-                    padding: const EdgeInsets.all(10),
+                    width: 110,
+                    height: 110,
+                    padding: const EdgeInsets.all(6),
                     margin: const EdgeInsets.all(10),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
                             color: Colors.white,
-                            width: 4,
+                            width: 1,
                             style: BorderStyle.solid),
                         image: const DecorationImage(
                             image: AssetImage(
@@ -75,22 +93,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'ajdkj',
+                        "${userModel.username}",
                         style: GoogleFonts.openSans(
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
-                      Padding(padding: EdgeInsets.all(7)),
+                      Padding(padding: EdgeInsets.all(8)),
                       Text(
-                        'sdjda',
+                        "${userModel.email}",
                         style: GoogleFonts.openSans(
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),

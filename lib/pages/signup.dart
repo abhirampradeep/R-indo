@@ -1,10 +1,10 @@
-import 'package:ar_indoor_nav/controller/signup_contoller.dart';
 import 'package:ar_indoor_nav/models/user_model.dart';
 import 'package:ar_indoor_nav/pages/home.dart';
 import 'package:ar_indoor_nav/usable_widgets/usable_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class signUp extends StatefulWidget {
@@ -16,13 +16,15 @@ class signUp extends StatefulWidget {
 
 class _signUpState extends State<signUp> {
   @override
-  // TextEditingController _passwordTextController = TextEditingController();
-  // TextEditingController _usernameTextController = TextEditingController();
-  // TextEditingController _emailTextController = TextEditingController();
+  TextEditingController _passwordTextController = TextEditingController();
+  TextEditingController _usernameTextController = TextEditingController();
+  TextEditingController _emailTextController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   Widget build(BuildContext context) {
-    final controller = Get.put(SignUpController());
-    final _formKey = GlobalKey<FormState>();
+    final _auth = FirebaseAuth.instance;
+
+    final updateuser = FirebaseAuth.instance.currentUser;
     return Scaffold(
       backgroundColor: Colors.grey[900],
       body: Center(
@@ -31,7 +33,7 @@ class _signUpState extends State<signUp> {
             onTap: () => FocusScope.of(context).unfocus(),
             child: Form(
               // autovalidateMode: AutovalidateMode.onUserInteraction,
-              // key: _formKey,
+              key: _formKey,
               child: Column(
                 children: [
                   Container(
@@ -53,7 +55,7 @@ class _signUpState extends State<signUp> {
                   ),
                   Container(
                     child: Text(
-                      "R-INDO",
+                      "AR-INDO",
                       style: GoogleFonts.openSans(
                         textStyle: const TextStyle(
                             color: Colors.white,
@@ -65,39 +67,49 @@ class _signUpState extends State<signUp> {
                   const SizedBox(
                     height: 30,
                   ),
+                  usableTextfield("Enter Username", Icons.person, false,
+                      _usernameTextController),
                   usableTextfield(
-                      "Enter Username", Icons.person, false, controller.user),
-                  usableTextfield(
-                      "Enter Email", Icons.mail, false, controller.email),
-                  usableTextfield(
-                      "Enter password", Icons.lock, true, controller.password),
+                      "Enter Email", Icons.mail, false, _emailTextController),
+                  usableTextfield("Enter password", Icons.lock, true,
+                      _passwordTextController),
                   const SizedBox(
                     height: 5,
                   ),
                   signInSignUpButton(context, false, () {
-                    // if (_formKey.currentState!.validate()) {
-                    final user = UserModel(
-                        user: controller.user.text.trim(),
-                        email: controller.email.text.trim(),
-                        password: controller.password.text.trim());
-                    SignUpController.instance.registerUser(
-                        controller.email.text.trim(),
-                        controller.password.text.trim());
-                    // }
+                    _auth
+                        .createUserWithEmailAndPassword(
+                            email: _emailTextController.text,
+                            password: _passwordTextController.text)
+                        .then((value) {
+                      FirebaseFirestore firebaseFirestore =
+                          FirebaseFirestore.instance;
+                      User? user = _auth.currentUser;
 
-                    // FirebaseAuth.instance
-                    //     .createUserWithEmailAndPassword(
-                    //         email: controller.email.text.trim(),
-                    //         password: controller.password.text.trim())
-                    //     .then((value) {
-                    //   print("successful");
-                    //   Navigator.push(
-                    //       context,
-                    //       MaterialPageRoute(
-                    //           builder: (context) => const HomeScreen()));
-                    // }).onError((error, stackTrace) {
-                    //   print("error ${error.toString()}");
-                    // });
+                      UserModel userModel = UserModel();
+
+                      //writing all data
+                      userModel.email = user!.email;
+                      userModel.uid = user.uid;
+
+                      //taking the input from of username and password and stroing it in userModel
+                      userModel.username = _usernameTextController.text;
+                      userModel.password = _passwordTextController.text;
+
+                      firebaseFirestore
+                          .collection("users")
+                          .doc(user.uid)
+                          .set(userModel.toMap());
+                      Fluttertoast.showToast(
+                          msg: "Account created Successfully");
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen()),
+                          (route) => false);
+                    }).catchError((e) {
+                      Fluttertoast.showToast(msg: e!.message);
+                    });
                   }),
                 ],
               ),

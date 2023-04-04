@@ -3,6 +3,7 @@ import 'package:ar_indoor_nav/pages/signup.dart';
 import 'package:ar_indoor_nav/usable_widgets/usable_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class loginScreen extends StatefulWidget {
@@ -52,7 +53,7 @@ class _loginScreenState extends State<loginScreen> {
                 ),
                 Container(
                   child: Text(
-                    "R-INDO",
+                    "AR-INDO",
                     style: GoogleFonts.openSans(
                       textStyle: const TextStyle(
                           color: Colors.white,
@@ -81,7 +82,7 @@ class _loginScreenState extends State<loginScreen> {
                           password: _passwordTextController.text.trim())
                       .then((value) {
                     print("sucess");
-
+                    Fluttertoast.showToast(msg: "login Succesful");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
