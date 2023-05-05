@@ -10,8 +10,9 @@ Image logoWidget(String imageName) {
 }
 
 TextFormField usableTextfield(String text, IconData icon, bool isPasswordtype,
-    TextEditingController controller) {
+    TextEditingController controller, String? Function(String?) validator) {
   return TextFormField(
+    validator: validator,
     controller: controller,
     obscureText: isPasswordtype,
     enableSuggestions: !isPasswordtype,
@@ -21,11 +22,11 @@ TextFormField usableTextfield(String text, IconData icon, bool isPasswordtype,
     decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.white, width: 2),
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.white, width: 2),
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
         ),
         helperText: '',
         border: OutlineInputBorder(
@@ -48,7 +49,7 @@ TextFormField usableTextfield(String text, IconData icon, bool isPasswordtype,
 }
 
 Container signInSignUpButton(
-    BuildContext context, bool isLogin, Function onTap) {
+    BuildContext context, bool isLogin, Function() onTap) {
   return Container(
     width: MediaQuery.of(context).size.width,
     height: 50,

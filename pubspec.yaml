@@ -38,7 +38,11 @@ dependencies:
   firebase_core: ^2.8.0
   firebase_auth: ^4.3.0
   google_fonts: ^4.0.3
-  cloud_firestore: ^4.4.5
+  cloud_firestore: ^4.5.0
+  get: ^4.6.5
+  auth: ^8.2.0+02
+  fluttertoast: ^8.2.1
+  camera: ^0.10.3+2
 
 dev_dependencies:
   flutter_test:

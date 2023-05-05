@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'package:ar_indoor_nav/firebase_options.dart';
-import 'package:ar_indoor_nav/pages/home.dart';
 import 'package:ar_indoor_nav/pages/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() async {
+  //firebase is initialised
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 
@@ -18,21 +18,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Splash Screen',
       theme: ThemeData(),
-      home: Splasgscreen(),
+      home: Splashscreen(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class Splasgscreen extends StatefulWidget {
+class Splashscreen extends StatefulWidget {
   @override
-  _SplasgscreenState createState() => _SplasgscreenState();
+  _SplashscreenState createState() => _SplashscreenState();
 }
 
-class _SplasgscreenState extends State<Splasgscreen> {
+class _SplashscreenState extends State<Splashscreen> {
   bool animate = false;
 
   @override
@@ -43,7 +43,7 @@ class _SplasgscreenState extends State<Splasgscreen> {
     Timer(
         Duration(seconds: 3),
         () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const HomeScreen())));
+            MaterialPageRoute(builder: (context) => const loginScreen())));
   }
 
   @override
@@ -74,7 +74,7 @@ class _SplasgscreenState extends State<Splasgscreen> {
             ),
             Container(
               child: const Text(
-                "R INDO",
+                "AR-INDO",
                 style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
