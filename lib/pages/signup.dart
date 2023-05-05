@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class signUp extends StatefulWidget {
@@ -19,6 +20,8 @@ class _signUpState extends State<signUp> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _usernameTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
+
+  //for validation purpose
   final _formKey = GlobalKey<FormState>();
 
   Widget build(BuildContext context) {
@@ -68,11 +71,11 @@ class _signUpState extends State<signUp> {
                     height: 30,
                   ),
                   usableTextfield("Enter Username", Icons.person, false,
-                      _usernameTextController),
-                  usableTextfield(
-                      "Enter Email", Icons.mail, false, _emailTextController),
+                      _usernameTextController, (value) {}),
+                  usableTextfield("Enter Email", Icons.mail, false,
+                      _emailTextController, (value) {}),
                   usableTextfield("Enter password", Icons.lock, true,
-                      _passwordTextController),
+                      _passwordTextController, (value) {}),
                   const SizedBox(
                     height: 5,
                   ),
@@ -92,7 +95,7 @@ class _signUpState extends State<signUp> {
                       userModel.email = user!.email;
                       userModel.uid = user.uid;
 
-                      //taking the input from of username and password and stroing it in userModel
+                      //taking the input from of username and password and storing it in userModel
                       userModel.username = _usernameTextController.text;
                       userModel.password = _passwordTextController.text;
 

@@ -42,6 +42,7 @@ dependencies:
   get: ^4.6.5
   auth: ^8.2.0+02
   fluttertoast: ^8.2.1
+  camera: ^0.10.3+2
 
 dev_dependencies:
   flutter_test:
