@@ -41,7 +41,7 @@ class _loginScreenState extends State<loginScreen> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 150,
+                    height: 100,
                     padding: const EdgeInsets.all(20),
                     margin: const EdgeInsets.all(20),
                     alignment: Alignment.center,
@@ -55,7 +55,7 @@ class _loginScreenState extends State<loginScreen> {
                             style: BorderStyle.solid),
                         image: const DecorationImage(
                             image: AssetImage(
-                          'assets/images/image.jpeg',
+                          'assets/images/indoor.png',
                         ))),
                   ),
                   Container(
@@ -78,12 +78,19 @@ class _loginScreenState extends State<loginScreen> {
                     if (value == null || value.isEmpty) {
                       return 'please enter your email';
                     }
+                    return null;
                   }),
                   const SizedBox(
                     height: 15,
                   ),
-                  usableTextfield("Password ID", Icons.lock, true,
-                      _passwordTextController, (value) {}),
+                  usableTextfield(
+                      "Password ID", Icons.lock, true, _passwordTextController,
+                      (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'please enter your password';
+                    }
+                    return null;
+                  }),
                   const SizedBox(
                     height: 10,
                   ),

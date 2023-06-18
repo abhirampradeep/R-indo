@@ -21,13 +21,15 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Splash Screen',
       theme: ThemeData(),
-      home: Splashscreen(),
+      home: const Splashscreen(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class Splashscreen extends StatefulWidget {
+  const Splashscreen({super.key});
+
   @override
   _SplashscreenState createState() => _SplashscreenState();
 }
@@ -41,7 +43,7 @@ class _SplashscreenState extends State<Splashscreen> {
 
     super.initState();
     Timer(
-        Duration(seconds: 3),
+        const Duration(seconds: 3),
         () => Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const loginScreen())));
   }
@@ -64,12 +66,12 @@ class _SplashscreenState extends State<Splashscreen> {
                   shape: BoxShape.circle,
                   border: Border.all(
                       color: Colors.white, width: 4, style: BorderStyle.solid),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                       image: AssetImage(
-                    'assets/images/image.jpeg',
+                    'assets/images/indoor.png',
                   ))),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
@@ -88,7 +90,7 @@ class _SplashscreenState extends State<Splashscreen> {
   }
 
   Future starAnimation() async {
-    await Future.delayed(Duration(microseconds: 5000));
+    await Future.delayed(const Duration(microseconds: 5000));
     setState(() {
       animate = true;
     });

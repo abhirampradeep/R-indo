@@ -18,30 +18,30 @@ TextFormField usableTextfield(String text, IconData icon, bool isPasswordtype,
     enableSuggestions: !isPasswordtype,
     autocorrect: !isPasswordtype,
     cursorColor: Colors.white,
-    style: TextStyle(color: Colors.white),
+    style: const TextStyle(color: Colors.white),
     decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white, width: 2),
+          borderSide: const BorderSide(color: Colors.white, width: 2),
           borderRadius: BorderRadius.circular(10),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white, width: 2),
+          borderSide: const BorderSide(color: Colors.white, width: 2),
           borderRadius: BorderRadius.circular(10),
         ),
         helperText: '',
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white, width: 2),
+          borderSide: const BorderSide(color: Colors.white, width: 2),
           borderRadius: BorderRadius.circular(15),
         ),
         focusColor: Colors.white,
         isDense: true,
-        contentPadding: EdgeInsets.only(top: 15),
+        contentPadding: const EdgeInsets.only(top: 15),
         prefixIcon: Icon(
           icon,
           color: Colors.white,
         ),
         hintText: text,
-        hintStyle: TextStyle(color: Colors.white)),
+        hintStyle: const TextStyle(color: Colors.white)),
     keyboardType: isPasswordtype
         ? TextInputType.visiblePassword
         : TextInputType.emailAddress,

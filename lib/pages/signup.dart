@@ -1,11 +1,10 @@
-import 'package:ar_indoor_nav/models/user_model.dart';
+import 'package:ar_indoor_nav/models/UserModel.dart';
 import 'package:ar_indoor_nav/pages/home.dart';
 import 'package:ar_indoor_nav/usable_widgets/usable_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class signUp extends StatefulWidget {
@@ -17,15 +16,16 @@ class signUp extends StatefulWidget {
 
 class _signUpState extends State<signUp> {
   @override
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _usernameTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _usernameTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
 
   //for validation purpose
   final _formKey = GlobalKey<FormState>();
 
+  @override
   Widget build(BuildContext context) {
-    final _auth = FirebaseAuth.instance;
+    final auth = FirebaseAuth.instance;
 
     final updateuser = FirebaseAuth.instance.currentUser;
     return Scaffold(
@@ -41,7 +41,7 @@ class _signUpState extends State<signUp> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 150,
+                    height: 100,
                     padding: const EdgeInsets.all(20),
                     margin: const EdgeInsets.all(20),
                     alignment: Alignment.center,
@@ -53,7 +53,7 @@ class _signUpState extends State<signUp> {
                             style: BorderStyle.solid),
                         image: const DecorationImage(
                             image: AssetImage(
-                          'assets/images/image.jpeg',
+                          'assets/images/indoor.png',
                         ))),
                   ),
                   Container(
@@ -71,23 +71,30 @@ class _signUpState extends State<signUp> {
                     height: 30,
                   ),
                   usableTextfield("Enter Username", Icons.person, false,
-                      _usernameTextController, (value) {}),
-                  usableTextfield("Enter Email", Icons.mail, false,
-                      _emailTextController, (value) {}),
+                      _usernameTextController, (value) {
+                    return null;
+                  }),
+                  usableTextfield(
+                      "Enter Email", Icons.mail, false, _emailTextController,
+                      (value) {
+                    return null;
+                  }),
                   usableTextfield("Enter password", Icons.lock, true,
-                      _passwordTextController, (value) {}),
+                      _passwordTextController, (value) {
+                    return null;
+                  }),
                   const SizedBox(
                     height: 5,
                   ),
                   signInSignUpButton(context, false, () {
-                    _auth
+                    auth
                         .createUserWithEmailAndPassword(
                             email: _emailTextController.text,
                             password: _passwordTextController.text)
                         .then((value) {
                       FirebaseFirestore firebaseFirestore =
                           FirebaseFirestore.instance;
-                      User? user = _auth.currentUser;
+                      User? user = auth.currentUser;
 
                       UserModel userModel = UserModel();
 
